@@ -1,0 +1,411 @@
+---
+swagger: "2.0"
+info:
+  description: Enable major merchants to launch subscription services through resellers worldwide
+  version: 1.0.12
+  title: Bango Resale API - Log Event
+host: resale.api.bango.net
+basePath: /v1
+schemes:
+- https
+produces:
+- application/json
+security:
+- basic: []
+paths:
+  /echo/{echoRequestId}:
+    post:
+      tags:
+      - Echo
+      summary: Service echo. Used to check Bango Resale API availability.
+      operationId: echo
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: X-RequestIdentifier
+        in: header
+        description: Request unique identifier. If present, this id will be used for idempotency.
+        required: false
+        type: string
+      - name: echoRequestId
+        in: path
+        description: Echo request identifier.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Echo request successful.
+          examples:
+            responseCode: OK
+            responseMessage: Success
+            echo: a25100b8-4e0c-4e37-b921-cac9cb1e930f
+          schema: {}
+        "400":
+          description: Bad request
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "401":
+          description: Unauthorized
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "429":
+          description: Too many requests
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "500":
+          description: Unexpected error
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: The server encountered an unexpected condition which prevented it from fulfilling the request
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "503":
+          description: Service unavailable
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: The server is undergoing maintenance and is not available. Please, try again later
+          schema:
+            $ref: '#/definitions/ResponseObject'
+  /entitlement/{entitlementId}:
+    get:
+      tags:
+      - Get entitlement
+      summary: Get entitlement
+      description: |
+        Get information about an entitlement
+      parameters:
+      - name: X-RequestIdentifier
+        in: header
+        description: Request unique identifier. If present, this id will be used for idempotency.
+        required: false
+        type: string
+      - name: entitlementId
+        in: path
+        description: Unique identifier used on activation.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: Entitlement data
+          examples:
+            responseCode: OK
+            responseMessage: Success
+            entitlementId: a25100b8-4e0c-4e37-b921-cac9cb1e930f
+            activationCode: ""
+            customerIdentifier: +4407123456789
+            productKey: 30_DA
+            entitlementDisplayName: 30 days of Bango music
+            offerKey: BUNDLE
+            merchantAccountKey: BANGO
+            status: ACTIVE
+            dateCreated: 2017-01-28T14:15:03Z
+            dateActivated: 2017-01-28T14:30:05Z
+            dateExpiry: "null"
+            dateEnded: "null"
+            dateLastUpdated: 2017-01-28T14:30:05Z
+            notificationUrl: https://www.example.com/notification/a25100b8-4e0c-4e37-b921-cac9cb1e930f
+            extensionData:
+              price: "9.99"
+              currencyIso3: GBP
+              channelType: WEB_PROMOTION
+              channelSource: https://bango.com/promo
+              campaignKey: SUMMER_PROMO
+              referrer: SEARCH_ENGINE
+              additionalCustomData1: additionalCustomDataValue1
+              additionalCustomData2: additionalCustomDataValue2
+              additionalCustomData3: additionalCustomDataValue3
+          schema:
+            $ref: '#/definitions/EntitlementGetResponse'
+        "400":
+          description: Bad request
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "401":
+          description: Unauthorized
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "404":
+          description: Entitlement not found
+          examples:
+            responseCode: NOT_FOUND
+            responseMessage: Entitlement not found
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "429":
+          description: Too many requests
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "500":
+          description: Unexpected error
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: The server encountered an unexpected condition which prevented it from fulfilling the request
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "503":
+          description: Service unavailable
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: The server is undergoing maintenance and is not available. Please, try again later
+          schema:
+            $ref: '#/definitions/ResponseObject'
+  /event:
+    post:
+      tags:
+      - Log event
+      summary: Log entitlement events
+      operationId: event
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: X-RequestIdentifier
+        in: header
+        description: Request unique identifier. If present, this id will be used for idempotency.
+        required: false
+        type: string
+      - in: body
+        name: event
+        description: The event JSON
+        required: true
+        schema:
+          $ref: '#/definitions/EventCreate'
+      responses:
+        "200":
+          description: Event logged successfully.
+          examples:
+            responseCode: OK
+            responseMessage: Success
+            redirectUrl: https://www.example.com/promotion/a25100b8-4e0c-4e37-b921-cac9cb1e930f
+          schema:
+            $ref: '#/definitions/EventCreateResponse'
+        "400":
+          description: Bad request
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "401":
+          description: Unauthorized
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "404":
+          description: Entitlement not found
+          examples:
+            responseCode: NOT_FOUND
+            responseMessage: Entitlement not found
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "429":
+          description: Too many requests
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "500":
+          description: Unexpected error
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: The server encountered an unexpected condition which prevented it from fulfilling the request
+          schema:
+            $ref: '#/definitions/ResponseObject'
+        "503":
+          description: Service unavailable
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: The server is undergoing maintenance and is not available. Please, try again later
+          schema:
+            $ref: '#/definitions/ResponseObject'
+securityDefinitions:
+  basic:
+    description: Basic authentication
+    type: basic
+definitions:
+  ResponseObject:
+    type: object
+    properties:
+      responseCode:
+        type: string
+      responseMessage:
+        type: string
+  EntitlementGetResponse:
+    type: object
+    properties:
+      responseCode:
+        type: string
+      responseMessage:
+        type: string
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+      productKey:
+        type: string
+        description: Entitlement  product unique identifier. For example, "30_DAYS_MUSIC".
+      entitlementDisplayName:
+        type: string
+        description: Entitlement display name. For example, "30 days Bango music".
+      offerKey:
+        type: string
+        description: Entitlement offer. For example, "BUNDLE".
+      merchantAccountKey:
+        type: string
+        description: Merchant unique identifier. For example, "BANGO".
+      status:
+        type: string
+        description: |-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
+            - "EXPIRED": The time window for the user to finalize the activation process has expired
+            - "FAILED": The entitlement failed
+            - "ACTIVATION_FAILED": The entitlement activation failed
+            - "ACTIVATION_EXPIRED": The entitlement activation expired
+            - "ACTIVATION_ALREADY_SUBSCRIBED": The entitlement activation was already used and is no longer valid
+            - "ACTIVATION_REJECTED": The product provider rejected the activation for an unspecified reason
+      dateCreated:
+        type: string
+        format: date
+        description: Date and time when the entitlement was created, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date
+        description: Date and time when the entitlement was activated, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateExpiry:
+        type: string
+        format: date
+        description: Entitlement expiry date in UTC ISO 8601 format. Null if no expiry (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date
+        description: Date and time when the entitlement ended due to cancellation or revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateLastUpdated:
+        type: string
+        format: date
+        description: Date and time when the entitlement was last modified, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      notificationUrl:
+        type: string
+        format: url
+        example: https://www.example.com/notification/a25100b8-4e0c-4e37-b921-cac9cb1e930f
+        description: URL where a POST notification will be sent after successful subscription creation. The body of the POST request will contain the entitlement information in EntitlementGetResponse format.
+      extensionData:
+        type: object
+        additionalProperties:
+          type: string
+          description: Accepts a dynamic list of key-value pairs to cover custom data needs
+  EventCreate:
+    type: object
+    required:
+    - entitlementId
+    - eventCode
+    - merchantEntitlementId
+    - success
+    properties:
+      entitlementId:
+        type: string
+        example: a25100b8-4e0c-4e37-b921-cac9cb1e930f
+        description: Entitlement id for this event. Only one of entitlementId or merchantEntitlementId are required for the correct processing of the event
+      merchantEntitlementId:
+        type: string
+        example: "123456789"
+        description: Merchant entitlement id for this event. Only one of entitlementId or merchantEntitlementId are required for the correct processing of the event
+      success:
+        type: string
+        example: "false"
+        description: '"true" if the event represents a success operation. "false" otherwise.'
+      eventCode:
+        type: string
+        example: ACTIVATION_FAILED
+        description: |-
+          Code representing the result of the operation. For example, "ACTIVATION_FAILED":
+            - "ACTIVATION_SUCCESS": Successful entitlement activation.
+            - "ACTIVATION_EXPIRED": Activation link or code has expired.
+            - "ACTIVATION_ALREADY_ACTIVE": Attempt to activate an entitlement that is already active.
+            - "ACTIVATION_ALREADY_FULFILLED": Attempt to activate an entitlement that has been already activated by a different user.
+            - "ACTIVATION_ALREADY_SUBSCRIBED": Attempt to activate an entitlement for a service by a user who is already subscribed to it.
+            - "ACTIVATION_REJECTED": The entitlement activation was rejected for an unspecified reason.
+            - "ACTIVATION_FAILED": The entitlement activation failed for an unspecified reason.
+            - "CANCELLATION_SUCCESS": Successful entitlement cancellation.
+            - "CANCELLATION_ALREADY_CANCELLED": Attempt to cancel an entitlement that is already cancelled.
+            - "LOGIN_SUCCESS": User logged in successfully to the activation flow.
+            - "LOGIN_FAILED": User could not log in to the activation flow for an unspecified reason.
+            - "ACCOUNT_TERMINATED": The user is no longer a customer.
+            - "FRAUD_DETECTION": For fraud prevention reasons, access to this entitlement has been terminated or rejected.
+            - "ACCOUNT_INELIGIBLE": User account not eligible for this entitlement.
+            - "PRODUCT_UPDATE": The user has updated the product in this entitlement.
+      eventDescription:
+        type: string
+        example: An unexpected error occurred during activation
+        description: Description of the event reason code.
+      productKey:
+        type: string
+        description: New product key. Only required when eventCode is "PRODUCT_UPDATE". Leave blank for all other event types
+      timestamp:
+        type: string
+        format: date
+        example: 2018-01-28T14:15:03Z
+        description: Timestamp of the event in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      extensionData:
+        type: object
+        example: {}
+        additionalProperties:
+          type: string
+          description: Accepts a dynamic list of key-value pairs to cover custom data needs (optional).
+  EventCreateResponse:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: OK
+        description: Code representing the result of the operation. For example, "OK".
+      responseMessage:
+        type: string
+        example: Success
+        description: Description of the result of the operation. For example, "Success".
+      redirectUrl:
+        type: string
+        example: https://www.example.com/promotion/a25100b8-4e0c-4e37-b921-cac9cb1e930f
+        description: URL where the user should be redirected to for this entitlement after this step. If no redirection is needed, the value will be null.
+  EchoResponse:
+    type: object
+    properties:
+      responseCode:
+        type: string
+      responseMessage:
+        type: string
+      echo:
+        type: string
