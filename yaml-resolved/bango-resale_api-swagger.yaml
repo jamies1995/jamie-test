@@ -15,8 +15,6 @@ security:
 paths:
   /echo/{echoRequestId}:
     post:
-      tags:
-      - Echo
       summary: Service echo. Used to check Bango Resale API availability.
       operationId: echo
       consumes:
@@ -79,8 +77,6 @@ paths:
             $ref: '#/definitions/ResponseObject'
   /entitlement/{entitlementId}:
     get:
-      tags:
-      - Get entitlement
       summary: Get entitlement
       description: |
         Get information about an entitlement
@@ -172,8 +168,6 @@ paths:
             $ref: '#/definitions/ResponseObject'
   /event:
     post:
-      tags:
-      - Log event
       summary: Log entitlement events
       operationId: event
       consumes:
