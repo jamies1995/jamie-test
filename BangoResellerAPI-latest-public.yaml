@@ -27,6 +27,11 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -93,6 +98,11 @@ paths:
       description: |
         Get information about an entitlement.
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -207,6 +217,11 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -354,6 +369,11 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -497,6 +517,11 @@ paths:
       description: |
         Cancel an entitlement
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -639,6 +664,11 @@ paths:
       description: |
         Revoke an entitlement
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -781,6 +811,11 @@ paths:
       description: |
         Suspend an entitlement. This operation can only be performed on entitlements that are in ACTIVE status.
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -894,6 +929,11 @@ paths:
       description: |
         Resume an entitlement. This operation can only be performed on entitlements that are in SUSPENDED status
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
@@ -1000,6 +1040,11 @@ paths:
       description: |
         Get a list of entitlements for a customerIdentifier, matching specific criteria
       parameters:
+        - name: Authorization
+          in: header
+          description: Authorization for the request being made. See securityDefinitions. 
+          type: string
+          required: true
         - name: X-RequestIdentifier
           in: header
           description: Request unique identifier. If present, this id will be used for idempotency.
