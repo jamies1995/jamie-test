@@ -4,7 +4,7 @@ info:
   description: >-
     Enable major merchants to launch subscription services through resellers
     worldwide
-  version: 1.0.16
+  version: 1.0.15
 host: resale.api.bango.net
 schemes:
   - https
