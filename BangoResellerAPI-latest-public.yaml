@@ -14,11 +14,10 @@ securityDefinitions:
     description: Basic authentication
 security:
   - basic: []
-basePath: /v1
 produces:
   - application/json
 paths:
-  /echo/{echoRequestId}:
+  /v1/echo/{echoRequestId}:
     post:
       summary: Service echo. Used to check Bango Resale API availability.
       operationId: echo
@@ -29,7 +28,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Authorization for the request being made. See securityDefinitions. 
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication. 
           type: string
           required: true
         - name: X-RequestIdentifier
@@ -38,14 +37,14 @@ paths:
           type: string
         - name: echoRequestId
           in: path
-          description: Echo request identifier.
+          description: An arbitrary identifier, which the Bango Platform repeats in a successful response.
           required: true
           type: string
       tags:
         - Echo
       responses:
         '200':
-          description: Echo request successful.
+          description: Echo request successful
           schema:
             items:
               $ref: '#/definitions/EchoResponse'
@@ -54,161 +53,45 @@ paths:
             responseMessage: Success
             echo: a25100b8-4e0c-4e37-b921-cac9cb1e930f
         '400':
-          description: Bad request
+          description: Invalid API request
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/BadRequest'
           examples:
             responseCode: BAD_REQUEST
             responseMessage: Invalid request
         '401':
-          description: Unauthorized
+          description: IP address or access credentials are invalid
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/Unauthorized'
           examples:
             responseCode: UNAUTHORIZED
             responseMessage: Invalid access credential.
         '429':
-          description: Too many requests
+          description: Request limit reached
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/TooManyRequests'
           examples:
             responseCode: TOO_MANY_REQUESTS
             responseMessage: Request limit reached. Please try again later
         '500':
-          description: Unexpected error
+          description: Unexpected server issue
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/InternalServerError'
           examples:
             responseCode: INTERNAL_ERROR
             responseMessage: >-
               The server encountered an unexpected condition which prevented it
               from fulfilling the request
         '503':
-          description: Service unavailable
+          description: Bango Platform undergoing maintenance
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/ServiceUnavailable'
           examples:
             responseCode: SERVICE_UNAVAILABLE
             responseMessage: >-
               The server is undergoing maintenance and is not available. Please,
               try again later
-  /entitlement/{entitlementId}:
-    get:
-      summary: Get entitlement
-      description: |
-        Get information about an entitlement.
-      parameters:
-        - name: Authorization
-          in: header
-          description: Authorization for the request being made. See securityDefinitions. 
-          type: string
-          required: true
-        - name: X-RequestIdentifier
-          in: header
-          description: Request unique identifier. If present, this id will be used for idempotency.
-          type: string
-        - name: entitlementId
-          in: path
-          description: Unique identifier used on activation.
-          required: true
-          type: string
-          format: uuid
-      tags:
-        - Get entitlement
-      responses:
-        '200':
-          description: Entitlement data
-          schema:
-            $ref: '#/definitions/EntitlementGetResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DA'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'ACTIVE'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: 'null'
-            dateLastUpdated: '2017-01-28T14:30:05Z'
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extraInformation: {
-        clientDevice: {
-                  type: "STB",
-                  id: "bc449c9e-406f-4399-a3ff-8671a27ac410",
-                  typeId: "P49AJFND8NFN23NANGAJG",
-                  modelName: "STB Model X7",
-                 modelNumber: "IAH45IAOF/5",
-                  serialNumber: "JHFJHA43JNFA9393GFD",
-                  osType: "Linux",
-                  osVersion: "10.3.8",
-                  macAddress: "4A-0F-99-F2-D3-DD",
-                  browser: "Firefox"}
-            }
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
-        '400':
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: BAD_REQUEST
-            responseMessage: Invalid request
-        '401':
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: UNAUTHORIZED
-            responseMessage: Invalid access credential.
-        '404':
-          description: Entitlement not found
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: NOT_FOUND
-            responseMessage: Entitlement not found
-        '429':
-          description: Too many requests
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: TOO_MANY_REQUESTS
-            responseMessage: Request limit reached. Please try again later
-        '500':
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: INTERNAL_ERROR
-            responseMessage: >-
-              The server encountered an unexpected condition which prevented it
-              from fulfilling the request
-        '503':
-          description: Service unavailable
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: SERVICE_UNAVAILABLE
-            responseMessage: >-
-              The server is undergoing maintenance and is not available. Please,
-              try again later
-  /entitlement:
+  /v1/entitlement:
     post:
       summary: Create a new entitlement
       operationId: create
@@ -219,7 +102,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Authorization for the request being made. See securityDefinitions. 
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication. 
           type: string
           required: true
         - name: X-RequestIdentifier
@@ -236,9 +119,9 @@ paths:
         - Create entitlement
       responses:
         '200':
-          description: Entitlement created successfully.
+          description: Entitlement created and activated successfully.
           schema:
-            $ref: '#/definitions/EntitlementResponse'
+            $ref: '#/definitions/EntitlementCreate200Response'
           examples:
             responseCode: "OK"
             responseMessage: "Success"
@@ -270,9 +153,9 @@ paths:
               additionalCustomData3: "additionalCustomDataValue3"
             }
         '202':
-          description: An action is required to be performed by the client
+          description: Entitlement created successfully, now pending activation
           schema:
-            $ref: '#/definitions/EntitlementResponse'
+            $ref: '#/definitions/EntitlementCreate202Response'
           examples:
             responseCode: "CLIENT_ACTION_REQUIRED"
             responseMessage: "An action is required in the client"
@@ -307,53 +190,53 @@ paths:
               additionalCustomData3: "additionalCustomDataValue3"
             }
         '400':
-          description: Bad request
+          description: Invalid API request
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/BadRequest'
           examples:
             responseCode: BAD_REQUEST
             responseMessage: Invalid request
         '401':
-          description: Unauthorized
+          description: IP address or access credentials are invalid
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/Unauthorized'
           examples:
             responseCode: UNAUTHORIZED
             responseMessage: Invalid access credential.
         '403':
-          description: No active entitlement routes available for this request where found
+          description: Unable to create entitlement for the service
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotAvailable'
           examples:
             responseCode: NOT_AVAILABLE
             responseMessage: No active entitlement routes available for this request where found
         '409':
-          description: Already exists
+          description: Entitlement ID already in use
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/AlreadyExists'
           examples:
             responseCode: ALREADY_EXISTS
             responseMessage: EntitlementId already exists.
         '429':
-          description: Too many requests
+          description: Request limit reached
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/TooManyRequests'
           examples:
             responseCode: TOO_MANY_REQUESTS
             responseMessage: Request limit reached. Please try again later
         '500':
-          description: Unexpected error
+          description: Unexpected server issue
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/InternalServerError'
           examples:
             responseCode: INTERNAL_ERROR
             responseMessage: >-
               The server encountered an unexpected condition which prevented it
               from fulfilling the request
         '503':
-          description: Service unavailable
+          description: Bango Platform undergoing maintenance
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/ServiceUnavailable'
           examples:
             responseCode: SERVICE_UNAVAILABLE
             responseMessage: >-
@@ -371,7 +254,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Authorization for the request being made. See securityDefinitions. 
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication.
           type: string
           required: true
         - name: X-RequestIdentifier
@@ -459,59 +342,508 @@ paths:
               additionalCustomData3: "additionalCustomDataValue3"
             }
         '400':
-          description: Bad request
+          description: Invalid API request
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/BadRequest'
           examples:
             responseCode: BAD_REQUEST
             responseMessage: Invalid request
         '401':
-          description: Unauthorized
+          description: IP address or access credentials are invalid
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/Unauthorized'
           examples:
             responseCode: UNAUTHORIZED
             responseMessage: Invalid access credential.
         '403':
-          description: No active entitlement routes available for this request where found
+          description: Unable to update entitlement for the service
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotAvailable'
           examples:
             responseCode: NOT_AVAILABLE
             responseMessage: No active entitlement routes available for this request where found
         '404':
           description: Entitlement not found
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotFound'
           examples:
             responseCode: NOT_FOUND
             responseMessage: Entitlement not found
         '429':
-          description: Too many requests
+          description: Request limit reached
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/TooManyRequests'
           examples:
             responseCode: TOO_MANY_REQUESTS
             responseMessage: Request limit reached. Please try again later
         '500':
-          description: Unexpected error
+          description: Unexpected server issue
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/InternalServerError'
           examples:
             responseCode: INTERNAL_ERROR
             responseMessage: >-
               The server encountered an unexpected condition which prevented it
               from fulfilling the request
         '503':
-          description: Service unavailable
+          description: Bango Platform undergoing maintenance
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/ServiceUnavailable'
           examples:
             responseCode: SERVICE_UNAVAILABLE
             responseMessage: >-
               The server is undergoing maintenance and is not available. Please,
               try again later
-  /entitlement/cancel/{entitlementId}:
+  /v1/entitlement/{entitlementId}:
+    get:
+      summary: Get entitlement
+      description: |
+        Get information about an entitlement.
+      parameters:
+        - name: Authorization
+          in: header
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication.
+          type: string
+          required: true
+        - name: X-RequestIdentifier
+          in: header
+          description: Request unique identifier. If present, this id will be used for idempotency.
+          type: string
+        - name: entitlementId
+          in: path
+          description: Unique identifier used on activation.
+          required: true
+          type: string
+          format: uuid
+      tags:
+        - Get entitlement
+      responses:
+        '200':
+          description: Entitlement retrieved successfully
+          schema:
+            $ref: '#/definitions/EntitlementGetResponse'
+          examples:
+            responseCode: 'OK'
+            responseMessage: 'Success'
+            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
+            activationCode: ''
+            customerIdentifier: '+4407123456789'
+            productKey: '30_DA'
+            entitlementDisplayName: '30 days of Bango music'
+            offerKey: 'BUNDLE'
+            merchantAccountKey: 'BANGO'
+            status: 'ACTIVE'
+            dateCreated: '2017-01-28T14:15:03Z'
+            dateActivated: '2017-01-28T14:30:05Z'
+            dateExpiry: 'null'
+            dateEnded: 'null'
+            dateLastUpdated: '2017-01-28T14:30:05Z'
+            dateSuspended: 'null'
+            dateResumed: 'null'
+            extraInformation: {
+        clientDevice: {
+                  type: "STB",
+                  id: "bc449c9e-406f-4399-a3ff-8671a27ac410",
+                  typeId: "P49AJFND8NFN23NANGAJG",
+                  modelName: "STB Model X7",
+                 modelNumber: "IAH45IAOF/5",
+                  serialNumber: "JHFJHA43JNFA9393GFD",
+                  osType: "Linux",
+                  osVersion: "10.3.8",
+                  macAddress: "4A-0F-99-F2-D3-DD",
+                  browser: "Firefox"}
+            }
+            extensionData: {
+              price: "9.99",
+              currencyIso3: "GBP",
+              channelType: "WEB_PROMOTION",
+              channelSource: "https://bango.com/promo",
+              campaignKey: "SUMMER_PROMO",
+              referrer: "SEARCH_ENGINE",
+              additionalCustomData1: "additionalCustomDataValue1",
+              additionalCustomData2: "additionalCustomDataValue2",
+              additionalCustomData3: "additionalCustomDataValue3"
+            }
+        '400':
+          description: Invalid API request
+          schema:
+            $ref: '#/definitions/BadRequest'
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+        '401':
+          description: IP address or access credentials are invalid
+          schema:
+            $ref: '#/definitions/Unauthorized'
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+        '404':
+          description: Entitlement not found
+          schema:
+            $ref: '#/definitions/NotFound'
+          examples:
+            responseCode: NOT_FOUND
+            responseMessage: Entitlement not found
+        '429':
+          description: Request limit reached
+          schema:
+            $ref: '#/definitions/TooManyRequests'
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+        '500':
+          description: Unexpected server issue
+          schema:
+            $ref: '#/definitions/InternalServerError'
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: >-
+              The server encountered an unexpected condition which prevented it
+              from fulfilling the request
+        '503':
+          description: Bango Platform undergoing maintenance
+          schema:
+            $ref: '#/definitions/ServiceUnavailable'
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: >-
+              The server is undergoing maintenance and is not available. Please,
+              try again later
+  /v1/entitlement/report:
+    post:
+      summary: Get a list of entitlements for a customerIdentifier, matching specific criteria
+      description: |
+        Get a list of entitlements for a customerIdentifier, matching specific criteria
+      parameters:
+        - name: Authorization
+          in: header
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication. 
+          type: string
+          required: true
+        - name: X-RequestIdentifier
+          in: header
+          description: Request unique identifier. If present, this id will be used for idempotency.
+          type: string
+        - name: entitlementReportBody
+          in: body
+          description: The report filters JSON.
+          schema:
+            $ref: '#/definitions/EntitlementReport'
+          required: true
+      tags:
+        - Entitlement report
+      responses:
+        '200':
+          description: Retrieval successful
+          schema:
+            $ref: '#/definitions/EntitlementReportResponse'
+          examples:
+            responseCode: 'OK'
+            responseMessage: 'Success'
+            entitlements: 
+              - entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
+                activationCode: ''
+                customerIdentifier: '+4407123456789'
+                productKey: '30_DAYS_MUSIC'
+                entitlementDisplayName: '30 days of Bango music'
+                offerKey: 'BUNDLE'
+                merchantAccountKey: 'BANGO'
+                status: 'CANCELLED'
+                dateCreated: '2017-01-28T14:15:03Z'
+                dateActivated: '2017-01-28T14:30:05Z'
+                dateExpiry: 'null'
+                dateEnded: '2017-02-15T09:30:05Z'
+                dateLastUpdated: '2017-02-15T09:30:05Z'
+                dateSuspended: 'null'
+                dateResumed: 'null'
+                extensionData: {
+                  price: "9.99",
+                  currencyIso3: "GBP",
+                  channelType: "WEB_PROMOTION",
+                  channelSource: "https://bango.com/promo",
+                  campaignKey: "SUMMER_PROMO",
+                  referrer: "SEARCH_ENGINE",
+                  additionalCustomData1: "additionalCustomDataValue1",
+                  additionalCustomData2: "additionalCustomDataValue2",
+                  additionalCustomData3: "additionalCustomDataValue3"
+                } 
+        '400':
+          description: Invalid API request
+          schema:
+            $ref: '#/definitions/BadRequest'
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+        '401':
+          description: IP address or access credentials are invalid
+          schema:
+            $ref: '#/definitions/Unauthorized'
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+        '429':
+          description: Request limit reached
+          schema:
+            $ref: '#/definitions/TooManyRequests'
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+        '500':
+          description: Unexpected server issue
+          schema:
+            $ref: '#/definitions/InternalServerError'
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: >-
+              The server encountered an unexpected condition which prevented it
+              from fulfilling the request
+        '503':
+          description: Bango Platform undergoing maintenance
+          schema:
+            $ref: '#/definitions/ServiceUnavailable'
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: >-
+              The server is undergoing maintenance and is not available. Please,
+              try again later            
+  /v1/entitlement/suspend/{entitlementId}:
+    post:
+      summary: Suspend an entitlement
+      description: |
+        Suspend an entitlement. This operation can only be performed on entitlements that are in ACTIVE status.
+      parameters:
+        - name: Authorization
+          in: header
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication. 
+          type: string
+          required: true
+        - name: X-RequestIdentifier
+          in: header
+          description: Request unique identifier. If present, this id will be used for idempotency.
+          type: string
+        - name: entitlementId
+          in: path
+          description: Unique identifier used on activation.
+          required: true
+          type: string
+          format: uuid
+      tags:
+        - Suspend entitlement
+      responses:
+        '200':
+          description: Entitlement suspended successfully
+          schema:
+            $ref: '#/definitions/EntitlementResponse'
+          examples:
+            responseCode: 'OK'
+            responseMessage: 'Success'
+            parameters: { }
+            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
+            activationCode: ''
+            customerIdentifier: '+4407123456789'
+            productKey: '30_DAYS_MUSIC'
+            entitlementDisplayName: '30 days of Bango music'
+            offerKey: 'BUNDLE'
+            merchantAccountKey: 'BANGO'
+            status: 'SUSPENDED'
+            dateCreated: '2017-01-28T14:15:03Z'
+            dateActivated: '2017-01-28T14:30:05Z'
+            dateExpiry: 'null'
+            dateEnded: '2017-02-15T09:30:05Z'
+            dateLastUpdated: '2017-02-15T09:30:05Z'
+            dateSuspended: '2019-03-15T09:30:05Z'
+            dateResumed: 'null'
+            extensionData: {
+              price: "9.99",
+              currencyIso3: "GBP",
+              channelType: "WEB_PROMOTION",
+              channelSource: "https://bango.com/promo",
+              campaignKey: "SUMMER_PROMO",
+              referrer: "SEARCH_ENGINE",
+              additionalCustomData1: "additionalCustomDataValue1",
+              additionalCustomData2: "additionalCustomDataValue2",
+              additionalCustomData3: "additionalCustomDataValue3"
+            }
+        '400':
+          description: Invalid API request
+          schema:
+            $ref: '#/definitions/BadRequest'
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+        '401':
+          description: IP address or access credentials are invalid
+          schema:
+            $ref: '#/definitions/Unauthorized'
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+        '403':
+          description: Unable to suspend entitlement for the service
+          schema:
+            $ref: '#/definitions/NotAvailable'
+          examples:
+            responseCode: NOT_AVAILABLE
+            responseMessage: No active entitlement routes available for this request where found
+        '404':
+          description: Entitlement not found
+          schema:
+            $ref: '#/definitions/NotFound'
+          examples:
+            responseCode: NOT_FOUND
+            responseMessage: Entitlement not found
+        '409':
+          description: Entitlement not in correct state.
+          schema:
+            $ref: '#/definitions/InvalidState'
+          examples:
+            responseCode: INVALID_STATE
+            responseMessage: Operation invalid for the current state of the entitlement.
+        '429':
+          description: Request limit reached
+          schema:
+            $ref: '#/definitions/TooManyRequests'
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+        '500':
+          description: Unexpected server issue
+          schema:
+            $ref: '#/definitions/InternalServerError'
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: >-
+              The server encountered an unexpected condition which prevented it
+              from fulfilling the request
+        '503':
+          description: Bango Platform undergoing maintenance
+          schema:
+            $ref: '#/definitions/ServiceUnavailable'
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: >-
+              The server is undergoing maintenance and is not available. Please,
+              try again later
+  /v1/entitlement/resume/{entitlementId}:
+    post:
+      summary: Resume an entitlement
+      description: |
+        Resume an entitlement. This operation can only be performed on entitlements that are in SUSPENDED status
+      parameters:
+        - name: Authorization
+          in: header
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication. 
+          type: string
+          required: true
+        - name: X-RequestIdentifier
+          in: header
+          description: Request unique identifier. If present, this id will be used for idempotency.
+          type: string
+        - name: entitlementId
+          in: path
+          description: Unique identifier used on activation.
+          required: true
+          type: string
+          format: uuid
+      tags:
+        - Resume entitlement
+      responses:
+        '200':
+          description: Entitlement resumed successfully
+          schema:
+            $ref: '#/definitions/EntitlementResponse'
+          examples:
+            responseCode: 'OK'
+            responseMessage: 'Success'
+            parameters: { }
+            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
+            activationCode: ''
+            customerIdentifier: '+4407123456789'
+            productKey: '30_DAYS_MUSIC'
+            entitlementDisplayName: '30 days of Bango music'
+            offerKey: 'BUNDLE'
+            merchantAccountKey: 'BANGO'
+            status: 'Active'
+            dateCreated: '2017-01-28T14:15:03Z'
+            dateActivated: '2017-01-28T14:30:05Z'
+            dateExpiry: 'null'
+            dateEnded: '2017-02-15T09:30:05Z'
+            dateLastUpdated: '2017-02-15T09:30:05Z'
+            dateSuspended: 'null'
+            dateResumed: 'null'
+            extensionData: {
+              price: "9.99",
+              currencyIso3: "GBP",
+              channelType: "WEB_PROMOTION",
+              channelSource: "https://bango.com/promo",
+              campaignKey: "SUMMER_PROMO",
+              referrer: "SEARCH_ENGINE",
+              additionalCustomData1: "additionalCustomDataValue1",
+              additionalCustomData2: "additionalCustomDataValue2",
+              additionalCustomData3: "additionalCustomDataValue3"
+            }
+        '400':
+          description: Invalid API request
+          schema:
+            $ref: '#/definitions/BadRequest'
+          examples:
+            responseCode: BAD_REQUEST
+            responseMessage: Invalid request
+        '401':
+          description: IP address or access credentials are invalid
+          schema:
+            $ref: '#/definitions/Unauthorized'
+          examples:
+            responseCode: UNAUTHORIZED
+            responseMessage: Invalid access credential.
+        '403':
+          description: Unable to resume entitlement for the service
+          schema:
+            $ref: '#/definitions/NotAvailable'
+          examples:
+            responseCode: NOT_AVAILABLE
+            responseMessage: No active entitlement routes available for this request where found
+        '404':
+          description: Entitlement not found
+          schema:
+            $ref: '#/definitions/NotFound'
+          examples:
+            responseCode: NOT_FOUND
+            responseMessage: Entitlement not found
+        '409':
+          description: Entitlement not in correct state
+          schema:
+            $ref: '#/definitions/InvalidState'
+          examples:
+            responseCode: INVALID_STATE
+            responseMessage: Operation invalid for the current state of the entitlement.  
+        '429':
+          description: Request limit reached
+          schema:
+            $ref: '#/definitions/TooManyRequests'
+          examples:
+            responseCode: TOO_MANY_REQUESTS
+            responseMessage: Request limit reached. Please try again later
+        '500':
+          description: Unexpected server issue
+          schema:
+            $ref: '#/definitions/InternalServerError'
+          examples:
+            responseCode: INTERNAL_ERROR
+            responseMessage: >-
+              The server encountered an unexpected condition which prevented it
+              from fulfilling the request
+        '503':
+          description: Bango Platform undergoing maintenance
+          schema:
+            $ref: '#/definitions/ServiceUnavailable'
+          examples:
+            responseCode: SERVICE_UNAVAILABLE
+            responseMessage: >-
+              The server is undergoing maintenance and is not available. Please,
+              try again later
+  /v1/entitlement/cancel/{entitlementId}:
     post:
       summary: Cancel an entitlement
       description: |
@@ -519,7 +851,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Authorization for the request being made. See securityDefinitions. 
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication. 
           type: string
           required: true
         - name: X-RequestIdentifier
@@ -606,59 +938,59 @@ paths:
               additionalCustomData3: "additionalCustomDataValue3"
             }
         '400':
-          description: Bad request
+          description: Invalid API request
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/BadRequest'
           examples:
             responseCode: BAD_REQUEST
             responseMessage: Invalid request
         '401':
-          description: Unauthorized
+          description: IP address or access credentials are invalid
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/Unauthorized'
           examples:
             responseCode: UNAUTHORIZED
             responseMessage: Invalid access credential.
         '403':
-          description: No active entitlement routes available for this request where found
+          description: Unable to cancel entitlement for the service
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotAvailable'
           examples:
             responseCode: NOT_AVAILABLE
             responseMessage: No active entitlement routes available for this request where found
         '404':
           description: Entitlement not found
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotFound'
           examples:
             responseCode: NOT_FOUND
             responseMessage: Entitlement not found
         '429':
-          description: Too many requests
+          description: Request limit reached
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/TooManyRequests'
           examples:
             responseCode: TOO_MANY_REQUESTS
             responseMessage: Request limit reached. Please try again later
         '500':
-          description: Unexpected error
+          description: Unexpected server issue
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/InternalServerError'
           examples:
             responseCode: INTERNAL_ERROR
             responseMessage: >-
               The server encountered an unexpected condition which prevented it
               from fulfilling the request
         '503':
-          description: Service unavailable
+          description: Bango Platform undergoing maintenance
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/ServiceUnavailable'
           examples:
             responseCode: SERVICE_UNAVAILABLE
             responseMessage: >-
               The server is undergoing maintenance and is not available. Please,
               try again later
-  /entitlement/revoke/{entitlementId}:
+  /v1/entitlement/revoke/{entitlementId}:
     post:
       summary: Revoke an entitlement
       description: |
@@ -666,7 +998,7 @@ paths:
       parameters:
         - name: Authorization
           in: header
-          description: Authorization for the request being made. See securityDefinitions. 
+          description: Your Bango Resale API credentials encoded for HTTP Basic Authentication.
           type: string
           required: true
         - name: X-RequestIdentifier
@@ -753,384 +1085,60 @@ paths:
               additionalCustomData3: "additionalCustomDataValue3"
             }
         '400':
-          description: Bad request
+          description: Invalid API request
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/BadRequest'
           examples:
             responseCode: BAD_REQUEST
             responseMessage: Invalid request
         '401':
-          description: Unauthorized
+          description: IP address or access credentials are invalid
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/Unauthorized'
           examples:
             responseCode: UNAUTHORIZED
             responseMessage: Invalid access credential.
         '403':
-          description: No active entitlement routes available for this request where found
+          description: Unable to revoke entitlement for the service
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotAvailable'
           examples:
             responseCode: NOT_AVAILABLE
             responseMessage: No active entitlement routes available for this request where found
         '404':
           description: Entitlement not found
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/NotFound'
           examples:
             responseCode: NOT_FOUND
             responseMessage: Entitlement not found
         '429':
-          description: Too many requests
+          description: Request limit reached
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/TooManyRequests'
           examples:
             responseCode: TOO_MANY_REQUESTS
             responseMessage: Request limit reached. Please try again later
         '500':
-          description: Unexpected error
+          description: Unexpected server issue
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/InternalServerError'
           examples:
             responseCode: INTERNAL_ERROR
             responseMessage: >-
               The server encountered an unexpected condition which prevented it
               from fulfilling the request
         '503':
-          description: Service unavailable
+          description: Bango Platform undergoing maintenance
           schema:
-            $ref: '#/definitions/ResponseObject'
+            $ref: '#/definitions/ServiceUnavailable'
           examples:
             responseCode: SERVICE_UNAVAILABLE
             responseMessage: >-
               The server is undergoing maintenance and is not available. Please,
               try again later
-  /entitlement/suspend/{entitlementId}:
-    post:
-      summary: Suspend an entitlement
-      description: |
-        Suspend an entitlement. This operation can only be performed on entitlements that are in ACTIVE status.
-      parameters:
-        - name: Authorization
-          in: header
-          description: Authorization for the request being made. See securityDefinitions. 
-          type: string
-          required: true
-        - name: X-RequestIdentifier
-          in: header
-          description: Request unique identifier. If present, this id will be used for idempotency.
-          type: string
-        - name: entitlementId
-          in: path
-          description: Unique identifier used on activation.
-          required: true
-          type: string
-          format: uuid
-      tags:
-        - Suspend entitlement
-      responses:
-        '200':
-          description: Entitlement suspended successfully
-          schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'SUSPENDED'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            dateSuspended: '2019-03-15T09:30:05Z'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
-        '400':
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: BAD_REQUEST
-            responseMessage: Invalid request
-        '401':
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: UNAUTHORIZED
-            responseMessage: Invalid access credential.
-        '403':
-          description: No active entitlement routes available for this request where found
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: NOT_AVAILABLE
-            responseMessage: No active entitlement routes available for this request where found
-        '404':
-          description: Entitlement not found
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: NOT_FOUND
-            responseMessage: Entitlement not found
-        '409':
-          description: Operation invalid for the current state of the entitlement.
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: INVALID_STATE
-            responseMessage: Operation invalid for the current state of the entitlement.
-        '429':
-          description: Too many requests
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: TOO_MANY_REQUESTS
-            responseMessage: Request limit reached. Please try again later
-        '500':
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: INTERNAL_ERROR
-            responseMessage: >-
-              The server encountered an unexpected condition which prevented it
-              from fulfilling the request
-        '503':
-          description: Service unavailable
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: SERVICE_UNAVAILABLE
-            responseMessage: >-
-              The server is undergoing maintenance and is not available. Please,
-              try again later
-  /entitlement/resume/{entitlementId}:
-    post:
-      summary: Resume an entitlement
-      description: |
-        Resume an entitlement. This operation can only be performed on entitlements that are in SUSPENDED status
-      parameters:
-        - name: Authorization
-          in: header
-          description: Authorization for the request being made. See securityDefinitions. 
-          type: string
-          required: true
-        - name: X-RequestIdentifier
-          in: header
-          description: Request unique identifier. If present, this id will be used for idempotency.
-          type: string
-        - name: entitlementId
-          in: path
-          description: Unique identifier used on activation.
-          required: true
-          type: string
-          format: uuid
-      tags:
-        - Resume entitlement
-      responses:
-        '200':
-          description: Entitlement resumed successfully
-          schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'Active'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
-        '400':
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: BAD_REQUEST
-            responseMessage: Invalid request
-        '401':
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: UNAUTHORIZED
-            responseMessage: Invalid access credential.
-        '403':
-          description: No active entitlement routes available for this request where found
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: NOT_AVAILABLE
-            responseMessage: No active entitlement routes available for this request where found
-        '404':
-          description: Entitlement not found
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: NOT_FOUND
-            responseMessage: Entitlement not found
-        '429':
-          description: Too many requests
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: TOO_MANY_REQUESTS
-            responseMessage: Request limit reached. Please try again later
-        '500':
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: INTERNAL_ERROR
-            responseMessage: >-
-              The server encountered an unexpected condition which prevented it
-              from fulfilling the request
-        '503':
-          description: Service unavailable
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: SERVICE_UNAVAILABLE
-            responseMessage: >-
-              The server is undergoing maintenance and is not available. Please,
-              try again later
-  /entitlement/report:
-    post:
-      summary: Get a list of entitlements for a customerIdentifier, matching specific criteria
-      description: |
-        Get a list of entitlements for a customerIdentifier, matching specific criteria
-      parameters:
-        - name: Authorization
-          in: header
-          description: Authorization for the request being made. See securityDefinitions. 
-          type: string
-          required: true
-        - name: X-RequestIdentifier
-          in: header
-          description: Request unique identifier. If present, this id will be used for idempotency.
-          type: string
-        - name: entitlementReportBody
-          in: body
-          description: The report filters JSON.
-          schema:
-            $ref: '#/definitions/EntitlementReport'
-          required: true
-      tags:
-        - Entitlement report
-      responses:
-        '200':
-          description: Entitlement cancelled successfully
-          schema:
-            $ref: '#/definitions/EntitlementReportResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            entitlements: 
-              - entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-                activationCode: ''
-                customerIdentifier: '+4407123456789'
-                productKey: '30_DAYS_MUSIC'
-                entitlementDisplayName: '30 days of Bango music'
-                offerKey: 'BUNDLE'
-                merchantAccountKey: 'BANGO'
-                status: 'CANCELLED'
-                dateCreated: '2017-01-28T14:15:03Z'
-                dateActivated: '2017-01-28T14:30:05Z'
-                dateExpiry: 'null'
-                dateEnded: '2017-02-15T09:30:05Z'
-                dateLastUpdated: '2017-02-15T09:30:05Z'
-                dateSuspended: 'null'
-                dateResumed: 'null'
-                extensionData: {
-                  price: "9.99",
-                  currencyIso3: "GBP",
-                  channelType: "WEB_PROMOTION",
-                  channelSource: "https://bango.com/promo",
-                  campaignKey: "SUMMER_PROMO",
-                  referrer: "SEARCH_ENGINE",
-                  additionalCustomData1: "additionalCustomDataValue1",
-                  additionalCustomData2: "additionalCustomDataValue2",
-                  additionalCustomData3: "additionalCustomDataValue3"
-                } 
-        '400':
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: BAD_REQUEST
-            responseMessage: Invalid request
-        '401':
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: UNAUTHORIZED
-            responseMessage: Invalid access credential.
-        '429':
-          description: Too many requests
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: TOO_MANY_REQUESTS
-            responseMessage: Request limit reached. Please try again later
-        '500':
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: INTERNAL_ERROR
-            responseMessage: >-
-              The server encountered an unexpected condition which prevented it
-              from fulfilling the request
-        '503':
-          description: Service unavailable
-          schema:
-            $ref: '#/definitions/ResponseObject'
-          examples:
-            responseCode: SERVICE_UNAVAILABLE
-            responseMessage: >-
-              The server is undergoing maintenance and is not available. Please,
-              try again later
+
+  
 definitions:
   EntitlementCreate:
     type: object
@@ -1140,18 +1148,26 @@ definitions:
       - merchantAccountKey
       - notificationUrl
     properties:
-      activationCode:
-        type: string
-        description: Code or token use for the entitlement activation (optional).
-        example: null
       customerIdentifier:
         type: string
         description: User unique identifier.
-        example: "+4407123456789"
+        example: "4407123456789"
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
       productKey:
         type: string
         description: 'Entitlement product unique identifier. For example, "30_DAYS_MUSIC".'
-        example: "30_DAYS_MUSIC"
+        example: "BangoMusic"
+      notificationUrl:
+        type: string
+        format: url
+        description: >-
+          The endpoint where all POST notifications will be sent after 
+          subscription creation. The body of the POST request will contain the
+          entitlement information in https://developer.bango.com/resale/api-ref/notifications.
+        example: "https://www.example.com/notification/a25100b8-4e0c-4e37-b921-cac9cb1e930f"
       entitlementDisplayName:
         type: string
         description: >-
@@ -1162,10 +1178,6 @@ definitions:
         type: string
         description: 'Entitlement offer. For example, "BUNDLE" (optional).'
         example: "BUNDLE"
-      merchantAccountKey:
-        type: string
-        description: 'Merchant unique identifier. For example, "BANGO".'
-        example: "BANGO"
       dateExpiry:
         type: string
         format: date
@@ -1173,14 +1185,6 @@ definitions:
           Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
           (yyyy-MM-ddThh:mm:ssZ)
         example: null
-      notificationUrl:
-        type: string
-        format: url
-        description: >-
-          The endpoint where all POST notifications will be sent after 
-          subscription creation. The body of the POST request will contain the
-          entitlement information in EntitlementGetResponse format.
-        example: "https://www.example.com/notification/a25100b8-4e0c-4e37-b921-cac9cb1e930f"
       extensionData:
         type: object
         additionalProperties:
@@ -1211,7 +1215,7 @@ definitions:
       customerIdentifier:
         type: string
         description: User unique identifier.
-        example: "+4407123456789"
+        example: "4407123456789"
       productKey:
         type: string
         description: 'Entitlement product unique identifier. For example, "30_DAYS_MUSIC".'
@@ -1252,6 +1256,201 @@ definitions:
           additionalCustomData1: "additionalCustomDataValue1"
           additionalCustomData2: "additionalCustomDataValue2"
           additionalCustomData3: "additionalCustomDataValue3"
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementCreate200Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+      dateCreated:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateExpiry:
+        type: string
+        format: date
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateFailed:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateSuspended:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateResumed:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Success"
+      status:
+        type: string
+        example: "ACTIVE"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementCreate202Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+      dateCreated:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateExpiry:
+        type: string
+        format: date
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateFailed:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateSuspended:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateResumed:
+        type: string
+        format: date
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+      responseCode:
+        type: string
+        example: "CLIENT_ACTION_REQUIRED"
+      responseMessage:
+        type: string
+        example: "An action is required to be performed by the client."
+      status:
+        type: string
+        example: "PENDING"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+        example: 
+          Action: "NAVIGATE_TO_URL"
+          Url: "https://example.com/?entitlementId=a25100b8-4e0c-4e37-b921-cac9cb1e930f"
       extraInformation:
         $ref: '#/definitions/ExtraEntitlementInfo'
   EntitlementResponse:
@@ -1295,7 +1494,6 @@ definitions:
             - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
             - "SUSPENDED": The entitlement has been suspended.
             - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
-            - "EXPIRED": The time window for the user to finalize the activation process has expired.
             - "FAILED": The entitlement failed
       dateCreated:
         type: string
@@ -1351,38 +1549,47 @@ definitions:
     properties:
       responseCode:
         type: string
+        example: "OK"
       responseMessage:
         type: string
+        example: "Success"
       entitlementId:
         type: string
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
         description: Unique identifier representing a specific entitlement.
       activationCode:
         type: string
+        example: 
         description: Code or token use for the entitlement activation.
       customerIdentifier:
         type: string
+        example: "4407123456789"
         description: User unique identifier.
       productKey:
         type: string
+        example: "BangoMusic"
         description: 'Entitlement  product unique identifier. For example, "30_DAYS_MUSIC".'
       entitlementDisplayName:
         type: string
+        example: "30 days Bango music"
         description: 'Entitlement display name. For example, "30 days Bango music".'
       offerKey:
         type: string
+        example:
         description: 'Entitlement offer. For example, "BUNDLE".'
       merchantAccountKey:
         type: string
+        example: "BANGO"
         description: 'Merchant unique identifier. For example, "BANGO".'
       status:
         type: string
+        example: "ACTIVE"
         description: >-
           Entitlement status. Possible values are:
             - "ACTIVE": The entitlement has been successfully activated
             - "CANCELLED": The entitlement has been cancelled.
             - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
             - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
-            - "EXPIRED": The time window for the user to finalize the activation process has expired
             - "FAILED": The entitlement failed
       dateCreated:
         type: string
@@ -1433,22 +1640,18 @@ definitions:
           description: Accepts a dynamic list of key-value pairs to cover custom data needs
       extraInformation:
         $ref: '#/definitions/ExtraEntitlementInfo'
-  ResponseObject:
-    type: object
-    properties:
-      responseCode:
-        type: string
-      responseMessage:
-        type: string
   EchoResponse:
     type: object
     properties:
       responseCode:
         type: string
+        example: "OK"
       responseMessage:
         type: string
+        example: "Success"
       echo:
         type: string
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
   EntitlementCancel:
     type: object
     description: "Accepts a dynamic list of key-value pairs to cover custom data needs. These will be added to the entitlement extensionData"
@@ -1543,7 +1746,6 @@ definitions:
             - "CANCELLED": The entitlement has been cancelled.
             - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
             - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
-            - "EXPIRED": The time window for the user to finalize the activation process has expired
             - "FAILED": The entitlement failed
         example: "ACTIVE"
   EntitlementReportResponse:
@@ -1584,7 +1786,6 @@ definitions:
               - "CANCELLED": The entitlement has been cancelled.
               - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
               - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
-              - "EXPIRED": The time window for the user to finalize the activation process has expired
               - "FAILED": The entitlement failed
         dateCreated:
           type: string
@@ -1721,3 +1922,85 @@ definitions:
         "City": "CityName",
         "Country": "CountryName"
       }
+      
+  BadRequest:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "BAD_REQUEST"
+      responseMessage:
+        type: string
+        example: "Invalid request."
+  Unauthorized:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "UNAUTHORIZED"
+      responseMessage:
+        type: string
+        example: "Invalid access credentials."
+  NotAvailable:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "NOT_AVAILABLE"
+      responseMessage:
+        type: string
+        example: "No active entitlement routes found."
+  NotFound:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "NOT_FOUND"
+      responseMessage:
+        type: string
+        example: "Entitlement not found."
+  TooManyRequests:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "TOO_MANY_REQUESTS"
+      responseMessage:
+        type: string
+        example: "Request limit reached. Please try again later."
+  InternalServerError:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "INTERNAL_ERROR"
+      responseMessage:
+        type: string
+        example: "The server encountered an unexpected condition which prevented it from fulfilling the request."
+  ServiceUnavailable:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "SERVICE_UNAVAILABLE"
+      responseMessage:
+        type: string
+        example: "The server is undergoing maintenance and is not available. Please, try again later."
+  AlreadyExists:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "ALREADY_EXISTS"
+      responseMessage:
+        type: string
+        example: "Entitlement already exists."
+  InvalidState:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "INVALID_STATE"
+      responseMessage:
+        type: string
+        example: "Operation invalid for the current state of the entitlement."
