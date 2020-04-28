@@ -2296,6 +2296,7 @@ definitions:
       
   BadRequest:
     type: object
+    description: "The Bango Platform was unable to process the request. This indicates an implementation problem in your code."
     properties:
       responseCode:
         type: string
@@ -2305,6 +2306,7 @@ definitions:
         example: "Invalid request."
   Unauthorized:
     type: object
+    description: "The Bango Platform didn't process the request as the supplied credentials were invalid, or the request was not from an authorized IP address. This indicates an implementation problem in your code or a configuration issue. See Bango Platform / Connectivity and security / Basic authentication and Bango Platform / Connectivity and security / IP whitelisting."
     properties:
       responseCode:
         type: string
@@ -2314,6 +2316,7 @@ definitions:
         example: "Invalid access credentials."
   NotAvailable:
     type: object
+    description: "The Bango Platform didn't create the entitlement as the service described in the request is either not enabled for you to use, or has been temporarily disabled due to service issues. Contact Bango Support for more information."
     properties:
       responseCode:
         type: string
@@ -2323,6 +2326,7 @@ definitions:
         example: "No active entitlement routes found."
   NotFound:
     type: object
+    description: "The Bango Platform didn't find an entitlement record with the specified ID."
     properties:
       responseCode:
         type: string
@@ -2332,6 +2336,7 @@ definitions:
         example: "Entitlement not found."
   TooManyRequests:
     type: object
+    description: "The Bango Platform didn't process the request as you've sent too many requests recently. Try again later."
     properties:
       responseCode:
         type: string
@@ -2341,6 +2346,7 @@ definitions:
         example: "Request limit reached. Please try again later."
   InternalServerError:
     type: object
+    description: "The Bango Platform couldn't respond to the request. Try again later."
     properties:
       responseCode:
         type: string
@@ -2350,6 +2356,7 @@ definitions:
         example: "The server encountered an unexpected condition which prevented it from fulfilling the request."
   ServiceUnavailable:
     type: object
+    description: "The Bango Platform is undergoing maintenance and is not currently available. Try again later."
     properties:
       responseCode:
         type: string
@@ -2359,6 +2366,7 @@ definitions:
         example: "The server is undergoing maintenance and is not available. Please, try again later."
   AlreadyExists:
     type: object
+    description: "The Bango Platform didn't create the entitlement as you're already using the entitlementId supplied in the request. Use a different ID."
     properties:
       responseCode:
         type: string
@@ -2368,6 +2376,7 @@ definitions:
         example: "Entitlement already exists."
   InvalidState:
     type: object
+    description: "The Bango Platform didn't process the request because the entitlement is not in correct state."
     properties:
       responseCode:
         type: string
