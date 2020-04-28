@@ -122,73 +122,10 @@ paths:
           description: Entitlement created and activated successfully.
           schema:
             $ref: '#/definitions/EntitlementCreate200Response'
-          examples:
-            responseCode: "OK"
-            responseMessage: "Success"
-            parameters: { }
-            entitlementId: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
-            activationCode: ""
-            customerIdentifier: "+4407123456789"
-            productKey: "30_DAYS_MUSIC"
-            entitlementDisplayName: "30 days of Bango music"
-            offerKey: "BUNDLE"
-            merchantAccountKey: "BANGO"
-            status: "ACTIVE"
-            dateCreated: "2017-01-28T14:15:03Z"
-            dateActivated: "2017-01-28T14:30:05Z"
-            dateExpiry: "null"
-            dateEnded: "null"
-            dateLastUpdated: "2017-01-28T14:30:05Z"
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
         '202':
           description: Entitlement created successfully, now pending activation
           schema:
             $ref: '#/definitions/EntitlementCreate202Response'
-          examples:
-            responseCode: "CLIENT_ACTION_REQUIRED"
-            responseMessage: "An action is required in the client"
-            parameters: {
-              action: "NAVIGATE_TO_URL",
-              url: "https://www.example.com/entitlementId=a25100b8-4e0c-4e37-b921-cac9cb1e930f"
-            }
-            entitlementId: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
-            activationCode: ""
-            customerIdentifier: "+4407123456789"
-            productKey: "30_DAYS_MUSIC"
-            entitlementDisplayName: "30 days of Bango music"
-            offerKey: "BUNDLE"
-            merchantAccountKey: "BANGO"
-            status: "PENDING"
-            dateCreated: "2017-01-28T14:15:03Z"
-            dateActivated: "null"
-            dateExpiry: "null"
-            dateEnded: "null"
-            dateLastUpdated: "2017-01-28T14:15:03Z"
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
         '400':
           description: Invalid API request
           schema:
@@ -273,74 +210,11 @@ paths:
         '200':
           description: Entitlement updated successfully.
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: "OK"
-            responseMessage: "Success"
-            parameters: {}
-            entitlementId: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
-            activationCode: ""
-            customerIdentifier: "+4407123456789"
-            productKey: "30_DAYS_MUSIC"
-            entitlementDisplayName: "30 days of Bango music"
-            offerKey: "BUNDLE"
-            merchantAccountKey: "BANGO"
-            status: "ACTIVE"
-            dateCreated: "2017-01-28T14:15:03Z"
-            dateActivated: "2017-01-28T14:30:05Z"
-            dateExpiry: "null"
-            dateEnded: "null"
-            dateLastUpdated: "2017-01-28T14:30:05Z"
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementUpdate200Response'
         '202':
           description: An action is required to be performed by the client
           schema:
             $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'CLIENT_ACTION_REQUIRED'
-            responseMessage: 'An action is required in the client'
-            parameters: {
-              action: 'NAVIGATE_TO_URL',
-              url: 'https://www.example.com/entitlementId=a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'PENDING'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: 'null'
-            dateLastUpdated: '2017-01-28T14:30:05Z'
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
         '400':
           description: Invalid API request
           schema:
@@ -422,48 +296,6 @@ paths:
           description: Entitlement retrieved successfully
           schema:
             $ref: '#/definitions/EntitlementGetResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DA'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'ACTIVE'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: 'null'
-            dateLastUpdated: '2017-01-28T14:30:05Z'
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extraInformation: {
-        clientDevice: {
-                  type: "STB",
-                  id: "bc449c9e-406f-4399-a3ff-8671a27ac410",
-                  typeId: "P49AJFND8NFN23NANGAJG",
-                  modelName: "STB Model X7",
-                 modelNumber: "IAH45IAOF/5",
-                  serialNumber: "JHFJHA43JNFA9393GFD",
-                  osType: "Linux",
-                  osVersion: "10.3.8",
-                  macAddress: "4A-0F-99-F2-D3-DD",
-                  browser: "Firefox"}
-            }
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
         '400':
           description: Invalid API request
           schema:
@@ -538,36 +370,6 @@ paths:
           description: Retrieval successful
           schema:
             $ref: '#/definitions/EntitlementReportResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            entitlements: 
-              - entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-                activationCode: ''
-                customerIdentifier: '+4407123456789'
-                productKey: '30_DAYS_MUSIC'
-                entitlementDisplayName: '30 days of Bango music'
-                offerKey: 'BUNDLE'
-                merchantAccountKey: 'BANGO'
-                status: 'CANCELLED'
-                dateCreated: '2017-01-28T14:15:03Z'
-                dateActivated: '2017-01-28T14:30:05Z'
-                dateExpiry: 'null'
-                dateEnded: '2017-02-15T09:30:05Z'
-                dateLastUpdated: '2017-02-15T09:30:05Z'
-                dateSuspended: 'null'
-                dateResumed: 'null'
-                extensionData: {
-                  price: "9.99",
-                  currencyIso3: "GBP",
-                  channelType: "WEB_PROMOTION",
-                  channelSource: "https://bango.com/promo",
-                  campaignKey: "SUMMER_PROMO",
-                  referrer: "SEARCH_ENGINE",
-                  additionalCustomData1: "additionalCustomDataValue1",
-                  additionalCustomData2: "additionalCustomDataValue2",
-                  additionalCustomData3: "additionalCustomDataValue3"
-                } 
         '400':
           description: Invalid API request
           schema:
@@ -634,37 +436,7 @@ paths:
         '200':
           description: Entitlement suspended successfully
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'SUSPENDED'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            dateSuspended: '2019-03-15T09:30:05Z'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementSuspend200Response'
         '400':
           description: Invalid API request
           schema:
@@ -752,37 +524,7 @@ paths:
         '200':
           description: Entitlement resumed successfully
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'Active'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            dateSuspended: 'null'
-            dateResumed: 'null'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementResume200Response'
         '400':
           description: Invalid API request
           schema:
@@ -876,67 +618,12 @@ paths:
         '200':
           description: Entitlement cancelled successfully
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'CANCELLED'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementCancel200Response'
+            
         '202':
           description: Entitlement cancellation request pending
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'ACCEPTED'
-            responseMessage: 'Termination request accepted by merchant.'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'ACTIVE'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementCancel202Response'
         '400':
           description: Invalid API request
           schema:
@@ -1023,67 +710,11 @@ paths:
         '200':
           description: Entitlement revoked successfully
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'OK'
-            responseMessage: 'Success'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'REVOKED'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementRevoke200Response'
         '202':
           description: Entitlement revocation request pending
           schema:
-            $ref: '#/definitions/EntitlementResponse'
-          examples:
-            responseCode: 'ACCEPTED'
-            responseMessage: 'Termination request accepted by merchant.'
-            parameters: { }
-            entitlementId: 'a25100b8-4e0c-4e37-b921-cac9cb1e930f'
-            activationCode: ''
-            customerIdentifier: '+4407123456789'
-            productKey: '30_DAYS_MUSIC'
-            entitlementDisplayName: '30 days of Bango music'
-            offerKey: 'BUNDLE'
-            merchantAccountKey: 'BANGO'
-            status: 'ACTIVE'
-            dateCreated: '2017-01-28T14:15:03Z'
-            dateActivated: '2017-01-28T14:30:05Z'
-            dateExpiry: 'null'
-            dateEnded: '2017-02-15T09:30:05Z'
-            dateLastUpdated: '2017-02-15T09:30:05Z'
-            extensionData: {
-              price: "9.99",
-              currencyIso3: "GBP",
-              channelType: "WEB_PROMOTION",
-              channelSource: "https://bango.com/promo",
-              campaignKey: "SUMMER_PROMO",
-              referrer: "SEARCH_ENGINE",
-              additionalCustomData1: "additionalCustomDataValue1",
-              additionalCustomData2: "additionalCustomDataValue2",
-              additionalCustomData3: "additionalCustomDataValue3"
-            }
+            $ref: '#/definitions/EntitlementRevoke202Response'
         '400':
           description: Invalid API request
           schema:
@@ -1258,6 +889,115 @@ definitions:
           additionalCustomData3: "additionalCustomDataValue3"
       extraInformation:
         $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementCancel:
+    type: object
+    description: "Accepts a dynamic list of key-value pairs to cover custom data needs. These will be added to the entitlement extensionData"
+    properties:
+      cancelReasonCategory:
+        type: string
+        description: >-
+          Code representing the entitlement cancel reason. This code can be any value, but we recommend you use one of the following codes:
+            - "CUSTOMER_CANCELLED"
+            - "CUSTOMER_CHANGED"
+        example: "CUSTOMER_CANCELLED"
+      cancelReasonCode:
+        type: string
+        description: >-
+          Code representing the entitlement cancel reason. This code can be any value, but we recommend you use one of the following codes:
+            - "NOT_RENEWED": The customer has not renewed the subscription
+            - "CUSTOMER_CANCELLED": The customer cancelled the subscription
+            - "PRODUCT_NO_LONGER_AVAILABLE": The reseller or merchant stopped offering this product
+            - "OTHER": Other
+        example: "NOT_RENEWED"
+      cancelReasonDescription:
+        type: string
+        description: Description of the entitlement cancel reason.
+        example: "The user did not renew their monthly contract"
+      additionalCustomDataValue1:
+        type: string
+        description: Custom data value. You can pass any key/value pair with extra information in this request
+        example: "Custom data value 1"
+      additionalCustomDataValue2:
+        type: string
+        description: Custom data value. You can pass any key/value pair with extra information in this request
+        example: "Custom data value 2"
+      additionalCustomDataValue3:
+        type: string
+        description: Custom data value. You can pass any key/value pair with extra information in this request
+        example: "Custom data value 3"
+  EntitlementRevoke:
+    type: object
+    description: "Accepts a dynamic list of key-value pairs to cover custom data needs. These will be added to the entitlement extensionData"
+    properties:
+      cancelReasonCategory:
+        type: string
+        description:  >-
+          Code representing the entitlement revoke reason. This code can be any value, but we recommend you use one of the following codes:
+            - "ACTIVATION_ROLLBACK"
+            - "REVOKED"
+        example: "ACTIVATION_ROLLBACK"
+      cancelReasonCode:
+        type: string
+        description:  >-
+          Code representing the entitlement revoke reason. This code can be any value, but we recommend you use one of the following codes:
+            - "FRAUD": The user has not renewed the subscription
+            - "ACCOUNT_TERMINATED": The user is no longer a customer
+            - "SECURITY": For security reasons, access to this entitlement has been terminated
+            - "OTHER": Other
+        example: "FRAUD"
+      cancelReasonDescription:
+        type: string
+        description: Description of the entitlement revoke reason
+        example: "Personal data stolen"
+      additionalCustomDataValue1:
+        type: string
+        description: Custom data value. You can pass any key/value pair with extra information in this request
+        example: "Custom data value 1"
+      additionalCustomDataValue2:
+        type: string
+        description: Custom data value. You can pass any key/value pair with extra information in this request
+        example: "Custom data value 2"
+      additionalCustomDataValue3:
+        type: string
+        description: Custom data value. You can pass any key/value pair with extra information in this request
+        example: "Custom data value 3"
+  EntitlementReport:
+    type: object
+    description: "List of filters applied to retrieve a list of existing entitlements"
+    required:
+      - customerIdentifier
+    properties:
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "+4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      status:
+        type: string
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
+            - "FAILED": The entitlement failed
+        example: "ACTIVE"
+  EchoResponse:
+    type: object
+    properties:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Success"
+      echo:
+        type: string
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
   EntitlementCreate200Response:
     type: object
     properties:
@@ -1280,6 +1020,7 @@ definitions:
       offerKey:
         type: string
         description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
       merchantAccountKey:
         type: string
         description: 'Merchant unique identifier. For example, "BANGO".'
@@ -1287,47 +1028,53 @@ definitions:
       activationCode:
         type: string
         description: Code or token use for the entitlement activation.
+        example:
       dateCreated:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was created, in UTC ISO 8601 format
           (yyyy-MM-ddThh:mm:ssZ)
       dateActivated:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was activated, in UTC ISO 8601
           format (yyyy-MM-ddThh:mm:ssZ)
       dateEnded:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement ended due to cancellation or
           revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateExpiry:
         type: string
-        format: date
+        format: date-time
         description: >-
           Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
           (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateFailed:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateSuspended:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was suspended, in UTC ISO 8601.
           format (yyyy-MM-ddThh:mm:ssZ)
+        example:    
       dateResumed:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was resumed, in UTC ISO 8601.
           format (yyyy-MM-ddThh:mm:ssZ)
+        example:
       responseCode:
         type: string
         example: "OK"
@@ -1376,6 +1123,7 @@ definitions:
       offerKey:
         type: string
         description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
       merchantAccountKey:
         type: string
         description: 'Merchant unique identifier. For example, "BANGO".'
@@ -1383,47 +1131,54 @@ definitions:
       activationCode:
         type: string
         description: Code or token use for the entitlement activation.
+        example:
       dateCreated:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was created, in UTC ISO 8601 format
           (yyyy-MM-ddThh:mm:ssZ)
       dateActivated:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was activated, in UTC ISO 8601
           format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateEnded:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement ended due to cancellation or
           revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateExpiry:
         type: string
-        format: date
+        format: date-time
         description: >-
           Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
           (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateFailed:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
       dateSuspended:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was suspended, in UTC ISO 8601.
           format (yyyy-MM-ddThh:mm:ssZ)
+        example:  
       dateResumed:
         type: string
-        format: date
+        format: date-time
         description: >-
           Date and time when the entitlement was resumed, in UTC ISO 8601.
           format (yyyy-MM-ddThh:mm:ssZ)
+        example:
       responseCode:
         type: string
         example: "CLIENT_ACTION_REQUIRED"
@@ -1451,6 +1206,927 @@ definitions:
         example: 
           Action: "NAVIGATE_TO_URL"
           Url: "https://example.com/?entitlementId=a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementUpdate200Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Subscription updated successfully"
+      status:
+        type: string
+        example: "ACTIVE"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementGetResponse:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+        description: Unique identifier representing a specific entitlement.
+      customerIdentifier:
+        type: string
+        example: "4407123456789"
+        description: User unique identifier.
+      productKey:
+        type: string
+        example: "BangoMusic"
+        description: 'Entitlement  product unique identifier. For example, "30_DAYS_MUSIC".'
+      entitlementDisplayName:
+        type: string
+        example: "30 days Bango music"
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+      offerKey:
+        type: string
+        example:
+        description: 'Entitlement offer. For example, "BUNDLE".'
+      merchantAccountKey:
+        type: string
+        example: "BANGO"
+        description: 'Merchant unique identifier. For example, "BANGO".'
+      activationCode:
+        type: string
+        example: 
+        description: Code or token use for the entitlement activation.
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Success"
+      status:
+        type: string
+        example: "ACTIVE"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        additionalProperties:
+          type: string
+          description: Accepts a dynamic list of key-value pairs to cover custom data needs
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementReportResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        entitlements:
+          type: array
+          items:
+            type: object
+            properties:
+              dateCreated:
+                type: string
+                format: date-time
+                description: >-
+                  Date and time when the entitlement was created, in UTC ISO 8601 format
+                  (yyyy-MM-ddThh:mm:ssZ)
+              dateActivated:
+                type: string
+                format: date-time
+                description: >-
+                  Date and time when the entitlement was activated, in UTC ISO 8601
+                  format (yyyy-MM-ddThh:mm:ssZ)
+              dateExpiry:
+                type: string
+                format: date-time
+                description: >-
+                  Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+                  (yyyy-MM-ddThh:mm:ssZ)
+                example: "0001-01-01T00:00:00Z"
+              dateFailed:
+                type: string
+                format: date-time
+                description: >-
+                  Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+                example: "0001-01-01T00:00:00Z"
+              dateEnded:
+                type: string
+                format: date-time
+                description: >-
+                  Date and time when the entitlement ended due to cancellation or
+                  revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+                example: "0001-01-01T00:00:00Z"
+              dateSuspended:
+                type: string
+                format: date-time
+                description: >-
+                  Date and time when the entitlement was suspended, in UTC ISO 8601.
+                  format (yyyy-MM-ddThh:mm:ssZ)
+                example:
+              dateResumed:
+                type: string
+                format: date-time
+                description: >-
+                  Date and time when the entitlement was resumed, in UTC ISO 8601.
+                  format (yyyy-MM-ddThh:mm:ssZ)
+                example:
+              entitlementId:
+                type: string
+                description: Unique identifier representing a specific entitlement.
+              activationCode:
+                type: string
+                description: Code or token use for the entitlement activation.
+                example:
+              customerIdentifier:
+                type: string
+                description: User unique identifier.
+                example: "4407123456789"
+              productKey:
+                type: string
+                description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+                example: "BangoMusic"
+              entitlementDisplayName:
+                type: string
+                description: 'Entitlement display name. For example, "30 days Bango music".'
+                example: "30 days Bango music"
+              offerKey:
+                type: string
+                description: 'Entitlement offer. For example, "BUNDLE".'
+                example:
+              merchantAccountKey:
+                type: string
+                description: 'Merchant unique identifier. For example, "BANGO".'
+                example: "Bango"
+              status:
+                type: string
+                example: "ACTIVE"
+                description: >-
+                  Entitlement status. Possible values are:
+                    - "ACTIVE": The entitlement has been successfully activated
+                    - "CANCELLED": The entitlement has been cancelled.
+                    - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
+                    - "SUSPENDED": The entitlement has been suspended.
+                    - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
+                    - "FAILED": The entitlement failed
+              extensionData:
+                type: object
+                additionalProperties:
+                  type: string
+                  description: Accepts a dynamic list of key-value pairs to cover custom data needs
+              extraInformation:
+                $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementSuspend200Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Subscription suspended successfully"
+      status:
+        type: string
+        example: "SUSPENDED"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementResume200Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Resume request pending"
+      status:
+        type: string
+        example: "SUSPENDED"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementCancel200Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Success"
+      status:
+        type: string
+        example: "CANCELLED"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementCancel202Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"  
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "ACCEPTED"
+      responseMessage:
+        type: string
+        example: "Termination request accepted by merchant."
+      status:
+        type: string
+        example: "ACTIVE"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'
+  EntitlementRevoke200Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "OK"
+      responseMessage:
+        type: string
+        example: "Success"
+      status:
+        type: string
+        example: "REVOKED"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
+      extraInformation:
+        $ref: '#/definitions/ExtraEntitlementInfo'      
+  EntitlementRevoke202Response:
+    type: object
+    properties:
+      entitlementId:
+        type: string
+        description: Unique identifier representing a specific entitlement.
+        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
+      customerIdentifier:
+        type: string
+        description: User unique identifier.
+        example: "4407123456789"
+      productKey:
+        type: string
+        description: 'Entitlement  product unique identifier. For example, "BangoMusic".'
+        example: "BangoMusic"
+      entitlementDisplayName:
+        type: string
+        description: 'Entitlement display name. For example, "30 days Bango music".'
+        example: "30 days Bango music"
+      offerKey:
+        type: string
+        description: 'Entitlement offer. For example, "BUNDLE".'
+        example:
+      merchantAccountKey:
+        type: string
+        description: 'Merchant unique identifier. For example, "BANGO".'
+        example: "BANGO"
+      activationCode:
+        type: string
+        description: Code or token use for the entitlement activation.
+        example:
+      dateCreated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was created, in UTC ISO 8601 format
+          (yyyy-MM-ddThh:mm:ssZ)
+      dateActivated:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was activated, in UTC ISO 8601
+          format (yyyy-MM-ddThh:mm:ssZ)
+      dateEnded:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement ended due to cancellation or
+          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"  
+      dateExpiry:
+        type: string
+        format: date-time
+        description: >-
+          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
+          (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateFailed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement failed, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
+        example: "0001-01-01T00:00:00Z"
+      dateSuspended:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was suspended, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      dateResumed:
+        type: string
+        format: date-time
+        description: >-
+          Date and time when the entitlement was resumed, in UTC ISO 8601.
+          format (yyyy-MM-ddThh:mm:ssZ)
+        example:
+      responseCode:
+        type: string
+        example: "ACCEPTED"
+      responseMessage:
+        type: string
+        example: "Termination request accepted by merchant."
+      status:
+        type: string
+        example: "ACTIVE"
+        description: >-
+          Entitlement status. Possible values are:
+            - "ACTIVE": The entitlement has been successfully activated
+            - "CANCELLED": The entitlement has been cancelled.
+            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases.
+            - "SUSPENDED": The entitlement has been suspended.
+            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process.
+            - "FAILED": The entitlement failed
+      extensionData:
+        type: object
+        description: Accepts a dynamic list of key-value pairs to cover custom data needs
+        additionalProperties:
+          type: string
+      parameters:
+        type: object
       extraInformation:
         $ref: '#/definitions/ExtraEntitlementInfo'
   EntitlementResponse:
@@ -1544,298 +2220,7 @@ definitions:
           type: string
       extraInformation:
         $ref: '#/definitions/ExtraEntitlementInfo'
-  EntitlementGetResponse:
-    type: object
-    properties:
-      responseCode:
-        type: string
-        example: "OK"
-      responseMessage:
-        type: string
-        example: "Success"
-      entitlementId:
-        type: string
-        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
-        description: Unique identifier representing a specific entitlement.
-      activationCode:
-        type: string
-        example: 
-        description: Code or token use for the entitlement activation.
-      customerIdentifier:
-        type: string
-        example: "4407123456789"
-        description: User unique identifier.
-      productKey:
-        type: string
-        example: "BangoMusic"
-        description: 'Entitlement  product unique identifier. For example, "30_DAYS_MUSIC".'
-      entitlementDisplayName:
-        type: string
-        example: "30 days Bango music"
-        description: 'Entitlement display name. For example, "30 days Bango music".'
-      offerKey:
-        type: string
-        example:
-        description: 'Entitlement offer. For example, "BUNDLE".'
-      merchantAccountKey:
-        type: string
-        example: "BANGO"
-        description: 'Merchant unique identifier. For example, "BANGO".'
-      status:
-        type: string
-        example: "ACTIVE"
-        description: >-
-          Entitlement status. Possible values are:
-            - "ACTIVE": The entitlement has been successfully activated
-            - "CANCELLED": The entitlement has been cancelled.
-            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
-            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
-            - "FAILED": The entitlement failed
-      dateCreated:
-        type: string
-        format: date
-        description: >-
-          Date and time when the entitlement was created, in UTC ISO 8601 format
-          (yyyy-MM-ddThh:mm:ssZ)
-      dateActivated:
-        type: string
-        format: date
-        description: >-
-          Date and time when the entitlement was activated, in UTC ISO 8601
-          format (yyyy-MM-ddThh:mm:ssZ)
-      dateExpiry:
-        type: string
-        format: date
-        description: >-
-          Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
-          (yyyy-MM-ddThh:mm:ssZ)
-      dateEnded:
-        type: string
-        format: date
-        description: >-
-          Date and time when the entitlement ended due to cancellation or
-          revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
-      dateLastUpdated:
-        type: string
-        format: date
-        description: >-
-          Date and time when the entitlement was last modified, in UTC ISO 8601
-          format (yyyy-MM-ddThh:mm:ssZ)
-      dateSuspended:
-        type: string
-        format: date
-        description: >-
-          Date and time when the entitlement was suspended, in UTC ISO 8601.
-          format (yyyy-MM-ddThh:mm:ssZ)
-      dateResumed:
-        type: string
-        format: date
-        description: >-
-          Date and time when the entitlement was resumed, in UTC ISO 8601.
-          format (yyyy-MM-ddThh:mm:ssZ)
-      extensionData:
-        type: object
-        additionalProperties:
-          type: string
-          description: Accepts a dynamic list of key-value pairs to cover custom data needs
-      extraInformation:
-        $ref: '#/definitions/ExtraEntitlementInfo'
-  EchoResponse:
-    type: object
-    properties:
-      responseCode:
-        type: string
-        example: "OK"
-      responseMessage:
-        type: string
-        example: "Success"
-      echo:
-        type: string
-        example: "a25100b8-4e0c-4e37-b921-cac9cb1e930f"
-  EntitlementCancel:
-    type: object
-    description: "Accepts a dynamic list of key-value pairs to cover custom data needs. These will be added to the entitlement extensionData"
-    properties:
-      cancelReasonCategory:
-        type: string
-        description: >-
-          Code representing the entitlement cancel reason. This code can be any value, but we recommend you use one of the following codes:
-            - "CUSTOMER_CANCELLED"
-            - "CUSTOMER_CHANGED"
-        example: "CUSTOMER_CANCELLED"
-      cancelReasonCode:
-        type: string
-        description: >-
-          Code representing the entitlement cancel reason. This code can be any value, but we recommend you use one of the following codes:
-            - "NOT_RENEWED": The customer has not renewed the subscription
-            - "CUSTOMER_CANCELLED": The customer cancelled the subscription
-            - "PRODUCT_NO_LONGER_AVAILABLE": The reseller or merchant stopped offering this product
-            - "OTHER": Other
-        example: "NOT_RENEWED"
-      cancelReasonDescription:
-        type: string
-        description: Description of the entitlement cancel reason.
-        example: "The user did not renew their monthly contract"
-      additionalCustomDataValue1:
-        type: string
-        description: Custom data value. You can pass any key/value pair with extra information in this request
-        example: "Custom data value 1"
-      additionalCustomDataValue2:
-        type: string
-        description: Custom data value. You can pass any key/value pair with extra information in this request
-        example: "Custom data value 2"
-      additionalCustomDataValue3:
-        type: string
-        description: Custom data value. You can pass any key/value pair with extra information in this request
-        example: "Custom data value 3"
-  EntitlementRevoke:
-    type: object
-    description: "Accepts a dynamic list of key-value pairs to cover custom data needs. These will be added to the entitlement extensionData"
-    properties:
-      cancelReasonCategory:
-        type: string
-        description:  >-
-          Code representing the entitlement revoke reason. This code can be any value, but we recommend you use one of the following codes:
-            - "ACTIVATION_ROLLBACK"
-            - "REVOKED"
-        example: "ACTIVATION_ROLLBACK"
-      cancelReasonCode:
-        type: string
-        description:  >-
-          Code representing the entitlement revoke reason. This code can be any value, but we recommend you use one of the following codes:
-            - "FRAUD": The user has not renewed the subscription
-            - "ACCOUNT_TERMINATED": The user is no longer a customer
-            - "SECURITY": For security reasons, access to this entitlement has been terminated
-            - "OTHER": Other
-        example: "FRAUD"
-      cancelReasonDescription:
-        type: string
-        description: Description of the entitlement revoke reason
-        example: "Personal data stolen"
-      additionalCustomDataValue1:
-        type: string
-        description: Custom data value. You can pass any key/value pair with extra information in this request
-        example: "Custom data value 1"
-      additionalCustomDataValue2:
-        type: string
-        description: Custom data value. You can pass any key/value pair with extra information in this request
-        example: "Custom data value 2"
-      additionalCustomDataValue3:
-        type: string
-        description: Custom data value. You can pass any key/value pair with extra information in this request
-        example: "Custom data value 3"
-  EntitlementReport:
-    type: object
-    description: "List of filters applied to retrieve a list of existing entitlements"
-    required:
-      - customerIdentifier
-    properties:
-      customerIdentifier:
-        type: string
-        description: User unique identifier.
-        example: "+4407123456789"
-      productKey:
-        type: string
-        description: 'Entitlement product unique identifier. For example, "30_DAYS_MUSIC".'
-        example: "30_DAYS_MUSIC"
-      status:
-        type: string
-        description: >-
-          Entitlement status. Possible values are:
-            - "ACTIVE": The entitlement has been successfully activated
-            - "CANCELLED": The entitlement has been cancelled.
-            - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
-            - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
-            - "FAILED": The entitlement failed
-        example: "ACTIVE"
-  EntitlementReportResponse:
-    type: array
-    items:
-      type: object
-      properties:
-        responseCode:
-          type: string
-        responseMessage:
-          type: string
-        entitlementId:
-          type: string
-          description: Unique identifier representing a specific entitlement.
-        activationCode:
-          type: string
-          description: Code or token use for the entitlement activation.
-        customerIdentifier:
-          type: string
-          description: User unique identifier.
-        productKey:
-          type: string
-          description: 'Entitlement  product unique identifier. For example, "30_DAYS_MUSIC".'
-        entitlementDisplayName:
-          type: string
-          description: 'Entitlement display name. For example, "30 days Bango music".'
-        offerKey:
-          type: string
-          description: 'Entitlement offer. For example, "BUNDLE".'
-        merchantAccountKey:
-          type: string
-          description: 'Merchant unique identifier. For example, "BANGO".'
-        status:
-          type: string
-          description: >-
-            Entitlement status. Possible values are:
-              - "ACTIVE": The entitlement has been successfully activated
-              - "CANCELLED": The entitlement has been cancelled.
-              - "REVOKED": The entitlement has been revoked. This usually happens on fraud and user contract termination cases
-              - "PENDING": The entitlement has been initiated, but the user has not yet finalized the activation process
-              - "FAILED": The entitlement failed
-        dateCreated:
-          type: string
-          format: date
-          description: >-
-            Date and time when the entitlement was created, in UTC ISO 8601 format
-            (yyyy-MM-ddThh:mm:ssZ)
-        dateActivated:
-          type: string
-          format: date
-          description: >-
-            Date and time when the entitlement was activated, in UTC ISO 8601
-            format (yyyy-MM-ddThh:mm:ssZ)
-        dateExpiry:
-          type: string
-          format: date
-          description: >-
-            Entitlement expiry date in UTC ISO 8601 format. Null if no expiry
-            (yyyy-MM-ddThh:mm:ssZ)
-        dateEnded:
-          type: string
-          format: date
-          description: >-
-            Date and time when the entitlement ended due to cancellation or
-            revoke, in UTC ISO 8601 format (yyyy-MM-ddThh:mm:ssZ)
-        dateLastUpdated:
-          type: string
-          format: date
-          description: >-
-            Date and time when the entitlement was last modified, in UTC ISO 8601
-            format (yyyy-MM-ddThh:mm:ssZ)
-        dateSuspended:
-          type: string
-          format: date
-          description: >-
-            Date and time when the entitlement was suspended, in UTC ISO 8601.
-            format (yyyy-MM-ddThh:mm:ssZ)
-        dateResumed:
-          type: string
-          format: date
-          description: >-
-            Date and time when the entitlement was resumed, in UTC ISO 8601.
-            format (yyyy-MM-ddThh:mm:ssZ)
-        extensionData:
-          type: object
-          additionalProperties:
-            type: string
-            description: Accepts a dynamic list of key-value pairs to cover custom data needs
-        extraInformation:
-          $ref: '#/definitions/ExtraEntitlementInfo'
+
   ClientDevice:
     type: object
     additionalProperties:
@@ -1863,7 +2248,6 @@ definitions:
       osVersion: "10.3.8"
       macAddress: "4A-0F-99-F2-D3-DD"
       browser: "Firefox"
-  
   CommunicationInformation:
     type: object
     additionalProperties:
@@ -1876,7 +2260,6 @@ definitions:
     example:
       emailAddress: "123@abc.co.uk"
       msisdn: "441234567890"
-    
   Source:
     type: object
     additionalProperties:
@@ -1899,7 +2282,6 @@ definitions:
       country: "United Kingdom"
       region: "East Anglia"
       brand: "BrandABC"
-      
   ExtraEntitlementInfo:
     type: object
     
@@ -1911,17 +2293,6 @@ definitions:
       source:
         $ref: '#/definitions/Source'
         
-  SampleExtraInfo:
-    type: object
-    additionalProperties: true
-    description: Sample information that can be provided by the Reseller.
-    example:
-      {
-        "Number": 10,
-        "Street": "Street No.1",
-        "City": "CityName",
-        "Country": "CountryName"
-      }
       
   BadRequest:
     type: object
