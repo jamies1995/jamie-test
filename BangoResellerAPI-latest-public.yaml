@@ -12,7 +12,7 @@ info:
       * Removing support for ACTIVATION_ status'
       * Extended extraInformation to include communicationInformation and source objects
   version: 1.0.15
-host: resale.api.bango.net
+##host: resale.api.bango.net
 schemes:
   - https
 securityDefinitions:
